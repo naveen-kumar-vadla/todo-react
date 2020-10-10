@@ -1,35 +1,17 @@
 import React, { Component } from 'react';
 
-const Input = ({ value, onChange, onKeyDown }) => {
-  return (
-    <input
-      type='text'
-      value={value}
-      onChange={event => onChange(event.target.value)}
-      onKeyDown={event => onKeyDown(event.key, event.target.value)}
-    ></input>
-  );
-};
+import Input from './Input.js'
+import TodoItem from './TodoItem.js'
 
-const TodoItem = ({ title, checked }) => {
-  return (
-    <div className={checked ? 'todoItem-completed' : 'todoItem-notCompleted'}>
-      <div className='highlighter'>{checked}</div>
-      <div className='title'>{title}</div>
-    </div>
-  );
-};
+const items = [
+  { title: 'do something', checked: true },
+  { title: 'something else', checked: false },
+];
 
 class Todo extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      items: [
-        { title: 'do something', checked: true },
-        { title: 'something else', checked: false },
-      ],
-      inputValue: '',
-    };
+    this.state = { items, inputValue: '' };
     this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
   }
@@ -39,7 +21,7 @@ class Todo extends Component {
   }
 
   onKeyDown(key, inputValue) {
-    if (key === 'Enter') this.addTodoItem(inputValue);
+    if (inputValue !== '' && key === 'Enter') this.addTodoItem(inputValue);
   }
 
   addTodoItem(title) {
@@ -50,14 +32,17 @@ class Todo extends Component {
     });
   }
 
-  render() {
-    const todoItems = this.state.items.map((item, i) => (
-      <TodoItem title={item.title} checked={item.checked} key={i}></TodoItem>
+  createTodoItems() {
+    return this.state.items.map((item, i) => (
+      <TodoItem item={item} key={i}></TodoItem>
     ));
+  }
+
+  render() {
     return (
       <div className='todo'>
         <h1 className='todo-name'>TODO</h1>
-        <div>{todoItems}</div>
+        <div>{this.createTodoItems()}</div>
         <Input
           value={this.state.inputValue}
           onChange={this.onChange}
