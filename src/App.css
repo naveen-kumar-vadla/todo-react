@@ -3,7 +3,7 @@
   width: 25vw;
 }
 
-.todoItem-completed,.todoItem-notCompleted {
+.todoItem-done,.todoItem-created {
   display: flex;
   margin: 0.5vh;
   cursor: pointer;
@@ -19,19 +19,19 @@
   margin-left: 0.5vw;
 }
 
-.todoItem-completed .highlighter {
+.todoItem-done .highlighter {
   background: mediumseagreen;
 }
 
-.todoItem-notCompleted .highlighter {
+.todoItem-created .highlighter {
   background: lightblue;
 }
  
 
-.todoItem-completed .title {
+.todoItem-done .title {
   text-decoration: line-through;
 }
 
-.todoItem-notCompleted .title {
+.todoItem-created .title {
   text-decoration: none;
 }

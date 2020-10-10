@@ -4,7 +4,7 @@ const TodoItem = ({ item, id, onClick }) => {
   const { title, checked } = item;
   return (
     <div
-      className={checked ? 'todoItem-completed' : 'todoItem-notCompleted'}
+      className={checked ? 'todoItem-done' : 'todoItem-created'}
       onClick={() => onClick(id)}
     >
       <div className='highlighter'></div>
