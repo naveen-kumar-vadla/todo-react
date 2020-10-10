@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TodoItem = ({ item, id, onClick }) => {
-  const className = `todoItem-${item.status}`;
+  const className = `todoItem-${item.state.name}`;
   return (
     <div className={className} onClick={() => onClick(id)}>
       <div className='highlighter'></div>
