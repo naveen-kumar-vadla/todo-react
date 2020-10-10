@@ -1,3 +1,36 @@
 .todo {
   margin: 0 auto;
+  width: 25vw;
+}
+
+.todoItem-completed,.todoItem-notCompleted {
+  display: flex;
+  margin: 0.5vh;
+}
+
+.highlighter {
+  width: 1.5vw;
+  height: 2vh;
+  margin-right: 0.5vh;
+}
+
+.title {
+  margin-left: 0.5vw;
+}
+
+.todoItem-completed .highlighter {
+  background: mediumseagreen;
+}
+
+.todoItem-notCompleted .highlighter {
+  background: lightblue;
+}
+ 
+
+.todoItem-completed .title {
+  text-decoration: line-through;
+}
+
+.todoItem-notCompleted .title {
+  text-decoration: none;
 }
