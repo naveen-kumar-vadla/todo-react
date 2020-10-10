@@ -4,8 +4,8 @@ import Input from './Input.js';
 import TodoItem from './TodoItem.js';
 
 const items = [
-  { title: 'do something', checked: true },
-  { title: 'something else', checked: false },
+  { title: 'do something', status: true },
+  { title: 'something else', status: false },
 ];
 
 class Todo extends Component {
@@ -28,7 +28,7 @@ class Todo extends Component {
   addTodoItem(title) {
     this.setState(state => {
       const items = state.items.slice();
-      items.push({ title, checked: false });
+      items.push({ title, status: false });
       return { items, inputValue: '' };
     });
   }
@@ -36,8 +36,8 @@ class Todo extends Component {
   toggleTodoItemCompletion(id) {
     this.setState(state => {
       const items = state.items.slice();
-      const item = Object.assign({},items[id]);
-      item.checked = !item.checked;
+      const item = Object.assign({}, items[id]);
+      item.status = !item.status;
       items[id] = item;
       return { items };
     });
@@ -45,7 +45,12 @@ class Todo extends Component {
 
   createTodoItems() {
     return this.state.items.map((item, i) => (
-      <TodoItem item={item} key={i} id={i} onClick={this.toggleTodoItemCompletion}></TodoItem>
+      <TodoItem
+        item={item}
+        key={i}
+        id={i}
+        onClick={this.toggleTodoItemCompletion}
+      ></TodoItem>
     ));
   }
 
