@@ -5,9 +5,9 @@ import TodoItem from './TodoItem.js';
 import State from './State.js';
 
 const items = [
-  { title: 'do something', state: State.Done },
-  { title: 'something else', state: State.Created },
-  { title: 'complete App', state: State.Doing },
+  { id: 1, title: 'do something', state: State.Done },
+  { id: 2, title: 'something else', state: State.Created },
+  { id: 3, title: 'complete App', state: State.Doing },
 ];
 
 class Todo extends Component {
@@ -30,7 +30,8 @@ class Todo extends Component {
   addTodoItem(title) {
     this.setState(state => {
       const items = state.items.slice();
-      items.push({ title, state: State.Created });
+      const id = items.length + 1;
+      items.push({ id, title, state: State.Created });
       return { items, inputValue: '' };
     });
   }
@@ -38,25 +39,26 @@ class Todo extends Component {
   updateTodoItemState(id) {
     this.setState(state => {
       const items = state.items.slice();
-      const item = Object.assign({}, items[id]);
+      const index = items.findIndex(item => item.id === id);
+      const item = Object.assign({}, items[index]);
       item.state = item.state.next;
-      items[id] = item;
+      items[index] = item;
       return { items };
     });
   }
 
   createTodoItems() {
-    return this.state.items.map((item, i) => (
+    return this.state.items.map(item => (
       <TodoItem
         item={item}
-        key={i}
-        id={i}
+        key={item.id}
         onClick={this.updateTodoItemState}
       ></TodoItem>
     ));
   }
 
   render() {
+    console.log(this.state.items);
     return (
       <div className='todo'>
         <h1 className='todo-name'>TODO</h1>

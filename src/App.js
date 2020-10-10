@@ -3,6 +3,6 @@ import './App.css';
 
 import Todo from './Todo.js';
 
-const App = () => <Todo />;
+const App = () => <div><Todo /></div>;
 
 export default App;
