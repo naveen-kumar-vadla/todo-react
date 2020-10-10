@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 
 import Input from './Input.js';
+import TodoHeader from './TodoHeader.js'
 import TodoItem from './TodoItem.js';
 import State from './State.js';
 
 const items = [
-  { id: 1, title: 'do something', state: State.Done },
-  { id: 2, title: 'something else', state: State.Created },
-  { id: 3, title: 'complete App', state: State.Doing },
+  { id: 1, title: 'Can add Item', state: State.Done },
+  { id: 2, title: 'Can delete a Item', state: State.Created },
+  { id: 3, title: 'Can mark an Item as Doing, Done', state: State.Doing },
 ];
 
 class Todo extends Component {
@@ -17,6 +18,7 @@ class Todo extends Component {
     this.onInputValueChange = this.onInputValueChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.updateTodoItemState = this.updateTodoItemState.bind(this);
+    this.updateName = this.updateName.bind(this);
   }
 
   onInputValueChange(inputValue) {
@@ -36,6 +38,10 @@ class Todo extends Component {
     });
   }
 
+  updateName(name) {
+    this.setState(_ => ({ name }));
+  }
+
   updateTodoItemState(id) {
     this.setState(state => {
       const items = state.items.slice();
@@ -49,18 +55,14 @@ class Todo extends Component {
 
   createTodoItems() {
     return this.state.items.map(item => (
-      <TodoItem
-        item={item}
-        key={item.id}
-        onClick={this.updateTodoItemState}
-      ></TodoItem>
+      <TodoItem item={item} key={item.id} onClick={this.updateTodoItemState} />
     ));
   }
 
   render() {
     return (
       <div className='todo'>
-        <h1 className='todo-name'>{this.state.name}</h1>
+        <TodoHeader value={this.state.name} updateName={this.updateName} />
         <div>{this.createTodoItems()}</div>
         <Input
           value={this.state.inputValue}
