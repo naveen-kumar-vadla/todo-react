@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Input from './Input.js'
-import TodoItem from './TodoItem.js'
+import Input from './Input.js';
+import TodoItem from './TodoItem.js';
 
 const items = [
   { title: 'do something', checked: true },
@@ -14,6 +14,7 @@ class Todo extends Component {
     this.state = { items, inputValue: '' };
     this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
+    this.toggleTodoItemCompletion = this.toggleTodoItemCompletion.bind(this);
   }
 
   onChange(inputValue) {
@@ -32,9 +33,19 @@ class Todo extends Component {
     });
   }
 
+  toggleTodoItemCompletion(id) {
+    this.setState(state => {
+      const items = state.items.slice();
+      const item = Object.assign({},items[id]);
+      item.checked = !item.checked;
+      items[id] = item;
+      return { items };
+    });
+  }
+
   createTodoItems() {
     return this.state.items.map((item, i) => (
-      <TodoItem item={item} key={i}></TodoItem>
+      <TodoItem item={item} key={i} id={i} onClick={this.toggleTodoItemCompletion}></TodoItem>
     ));
   }
 

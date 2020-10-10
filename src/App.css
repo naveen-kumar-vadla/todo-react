@@ -6,6 +6,7 @@
 .todoItem-completed,.todoItem-notCompleted {
   display: flex;
   margin: 0.5vh;
+  cursor: pointer;
 }
 
 .highlighter {
