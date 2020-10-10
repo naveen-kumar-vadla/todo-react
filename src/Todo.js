@@ -13,13 +13,13 @@ const items = [
 class Todo extends Component {
   constructor(props) {
     super(props);
-    this.state = { items, inputValue: '' };
-    this.onChange = this.onChange.bind(this);
+    this.state = { name: 'TODO', items, inputValue: '' };
+    this.onInputValueChange = this.onInputValueChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.updateTodoItemState = this.updateTodoItemState.bind(this);
   }
 
-  onChange(inputValue) {
+  onInputValueChange(inputValue) {
     this.setState(_ => ({ inputValue }));
   }
 
@@ -58,14 +58,13 @@ class Todo extends Component {
   }
 
   render() {
-    console.log(this.state.items);
     return (
       <div className='todo'>
-        <h1 className='todo-name'>TODO</h1>
+        <h1 className='todo-name'>{this.state.name}</h1>
         <div>{this.createTodoItems()}</div>
         <Input
           value={this.state.inputValue}
-          onChange={this.onChange}
+          onChange={this.onInputValueChange}
           onKeyDown={this.onKeyDown}
         />
       </div>

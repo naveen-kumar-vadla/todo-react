@@ -3,6 +3,10 @@
   width: 25vw;
 }
 
+.todo-name {
+  cursor: pointer;
+}
+
 .todoItem-created,
 .todoItem-doing,
 .todoItem-done {
