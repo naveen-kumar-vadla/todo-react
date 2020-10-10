@@ -3,9 +3,17 @@ import React, { Component } from 'react';
 import Input from './Input.js';
 import TodoItem from './TodoItem.js';
 
+const getNextState = currentState => {
+  if (currentState === 'created') return 'doing';
+  if (currentState === 'doing') return 'done';
+  if (currentState === 'done') return 'created';
+  return currentState;
+};
+
 const items = [
-  { title: 'do something', status: true },
-  { title: 'something else', status: false },
+  { title: 'do something', status: 'done' },
+  { title: 'something else', status: 'created' },
+  { title: 'complete App', status: 'doing' },
 ];
 
 class Todo extends Component {
@@ -14,7 +22,7 @@ class Todo extends Component {
     this.state = { items, inputValue: '' };
     this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this.toggleTodoItemCompletion = this.toggleTodoItemCompletion.bind(this);
+    this.updateTodoItemStatus = this.updateTodoItemStatus.bind(this);
   }
 
   onChange(inputValue) {
@@ -28,16 +36,16 @@ class Todo extends Component {
   addTodoItem(title) {
     this.setState(state => {
       const items = state.items.slice();
-      items.push({ title, status: false });
+      items.push({ title, status: 'created' });
       return { items, inputValue: '' };
     });
   }
 
-  toggleTodoItemCompletion(id) {
+  updateTodoItemStatus(id) {
     this.setState(state => {
       const items = state.items.slice();
       const item = Object.assign({}, items[id]);
-      item.status = !item.status;
+      item.status = getNextState(item.status);
       items[id] = item;
       return { items };
     });
@@ -49,7 +57,7 @@ class Todo extends Component {
         item={item}
         key={i}
         id={i}
-        onClick={this.toggleTodoItemCompletion}
+        onClick={this.updateTodoItemStatus}
       ></TodoItem>
     ));
   }

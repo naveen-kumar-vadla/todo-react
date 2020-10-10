@@ -3,7 +3,9 @@
   width: 25vw;
 }
 
-.todoItem-done,.todoItem-created {
+.todoItem-created,
+.todoItem-doing,
+.todoItem-done {
   display: flex;
   margin: 0.5vh;
   cursor: pointer;
@@ -19,19 +21,23 @@
   margin-left: 0.5vw;
 }
 
+.todoItem-created .highlighter {
+  background: lightblue;
+}
+
+.todoItem-doing .highlighter {
+  background: orange;
+}
+
 .todoItem-done .highlighter {
   background: mediumseagreen;
 }
 
-.todoItem-created .highlighter {
-  background: lightblue;
+.todoItem-created .title,
+.todoItem-doing {
+  text-decoration: none;
 }
- 
 
 .todoItem-done .title {
   text-decoration: line-through;
-}
-
-.todoItem-created .title {
-  text-decoration: none;
 }

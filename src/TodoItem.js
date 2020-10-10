@@ -1,14 +1,11 @@
 import React from 'react';
 
 const TodoItem = ({ item, id, onClick }) => {
-  const { title, status } = item;
+  const className = `todoItem-${item.status}`;
   return (
-    <div
-      className={status ? 'todoItem-done' : 'todoItem-created'}
-      onClick={() => onClick(id)}
-    >
+    <div className={className} onClick={() => onClick(id)}>
       <div className='highlighter'></div>
-      <div className='title'>{title}</div>
+      <div className='title'>{item.title}</div>
     </div>
   );
 };
