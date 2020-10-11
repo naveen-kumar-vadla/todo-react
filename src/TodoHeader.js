@@ -43,20 +43,26 @@ class TodoHeader extends Component {
     const resetButtonClassName = this.state.isHovered ? 'fas fa-times' : '';
     const header = (
       <div
-        className='todo-item-container'
-        onClick={this.toggleEditMode}
+        className='flex-container'
         onMouseEnter={this.toggleMouseHover}
         onMouseLeave={this.toggleMouseHover}
       >
-        <div className='todo-name'> {this.state.name} </div>
-        <i className={'icon ' + resetButtonClassName} onClick={resetAction}></i>
+        <div className='todo-name' onClick={this.toggleEditMode}>
+          {this.state.name}
+        </div>
+        <i
+          className={'icon reset-button ' + resetButtonClassName}
+          onClick={resetAction}
+        ></i>
       </div>
     );
     const inputHeader = (
       <Input
+        className='todo-name-edit-mode'
         value={this.state.name}
         onChange={this.updateName}
         onKeyDown={this.onKeyDown}
+        autoFocus={true}
       />
     );
     return this.state.isEditing ? inputHeader : header;

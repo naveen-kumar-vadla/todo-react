@@ -71,7 +71,7 @@ class Todo extends Component {
           updateName={this.updateName}
           reset={this.reset}
         />
-        <div>{this.createTodoItems()}</div>
+        {this.createTodoItems()}
         <TodoItemAdder addTodoItem={this.addTodoItem} />
       </div>
     );

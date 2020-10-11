@@ -24,9 +24,11 @@ class TodoItemAdder extends Component {
   render() {
     return (
       <Input
+        className='todo-item-adder'
         value={this.state.inputValue}
         onChange={this.onInputValueChange}
         onKeyDown={this.onKeyDown}
+        placeholder='Enter your new Todo Item here'
       />
     );
   }

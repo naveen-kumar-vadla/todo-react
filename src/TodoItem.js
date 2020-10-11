@@ -28,14 +28,13 @@ class TodoItem extends Component {
     return (
       <div
         className={`todoItem-${this.props.state.name}`}
+        onClick={this.toggleState}
         onMouseEnter={this.toggleMouseHover}
         onMouseLeave={this.toggleMouseHover}
       >
-        <div className='highlighter'></div>
-        <div className='todo-item-container'>
-          <div className='title' onClick={this.toggleState}>
-            {this.props.title}
-          </div>
+        <span className='highlighter'></span>
+        <div className='flex-container'>
+          <div className='title'>{this.props.title}</div>
           <i
             className={'icon ' + deleteButtonClassName}
             onClick={deleteAction}

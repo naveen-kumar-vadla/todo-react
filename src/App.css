@@ -1,10 +1,26 @@
+::placeholder {
+  font-style: italic;
+  color: #b0b0b0;
+  font-family: font-awesome;
+  font-size: 1.5vh;
+}
+
 .todo {
   margin: 0 auto;
   width: 25vw;
+  word-wrap: break-word;
+  word-break: break-all;
+  hyphens: auto;
 }
 
 .todo-name {
   cursor: pointer;
+  border: 2px solid transparent;
+  padding: 1px 2px;
+}
+
+.todo-name,
+.todo-name-edit-mode {
   font-weight: bold;
   font-size: 3vh;
 }
@@ -48,7 +64,7 @@
   text-decoration: line-through;
 }
 
-.todo-item-container {
+.flex-container {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -60,6 +76,15 @@
   cursor: pointer;
 }
 
-input[type="text"] {
+input[type='text'] {
   width: 100%;
+}
+
+.todo-item-adder {
+  margin: 1vh 0vh 1vh 0vh;
+  width: 100%;
+}
+
+.reset-button {
+  margin-top: 1vh;
 }
