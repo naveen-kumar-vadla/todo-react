@@ -55,7 +55,7 @@ class Todo extends Component {
 
   createTodoItems() {
     return this.state.items.map(item => (
-      <TodoItem item={item} key={item.id} onClick={this.updateTodoItemState} />
+      <TodoItem state={item.state} title={item.title} id={item.id} key={item.id} onClick={this.updateTodoItemState} />
     ));
   }
 

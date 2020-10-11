@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const TodoItem = ({ item, onClick }) => {
-  const className = `todoItem-${item.state.name}`;
-  return (
-    <div className={className} onClick={() => onClick(item.id)}>
-      <div className='highlighter'></div>
-      <div className='title'>{item.title}</div>
-    </div>
-  );
-};
+class TodoItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    const className = `todoItem-${this.props.state.name}`;
+    return (
+      <div className={className} onClick={() => this.props.onClick(this.props.id)}>
+        <div className='highlighter'></div>
+        <div className='title'>{this.props.title}</div>
+      </div>
+    );
+  }
+}
 
 export default TodoItem;
