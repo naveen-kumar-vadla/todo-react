@@ -45,3 +45,14 @@
 .todoItem-done .title {
   text-decoration: line-through;
 }
+
+.todo-item-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon {
+  height: 16px;
+  width: 11px;
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Input from './Input.js';
-import TodoHeader from './TodoHeader.js'
+import TodoHeader from './TodoHeader.js';
 import TodoItem from './TodoItem.js';
 import State from './State.js';
 
@@ -19,6 +19,7 @@ class Todo extends Component {
     this.onKeyDown = this.onKeyDown.bind(this);
     this.updateTodoItemState = this.updateTodoItemState.bind(this);
     this.updateName = this.updateName.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   onInputValueChange(inputValue) {
@@ -42,6 +43,12 @@ class Todo extends Component {
     this.setState(_ => ({ name }));
   }
 
+  deleteItem(id) {
+    this.setState(({ items }) => ({
+      items: items.filter(item => item.id !== id),
+    }));
+  }
+
   updateTodoItemState(id) {
     this.setState(state => {
       const items = state.items.slice();
@@ -55,7 +62,14 @@ class Todo extends Component {
 
   createTodoItems() {
     return this.state.items.map(item => (
-      <TodoItem state={item.state} title={item.title} id={item.id} key={item.id} onClick={this.updateTodoItemState} />
+      <TodoItem
+        state={item.state}
+        title={item.title}
+        id={item.id}
+        key={item.id}
+        onClick={this.updateTodoItemState}
+        deleteItem={this.deleteItem}
+      />
     ));
   }
 
