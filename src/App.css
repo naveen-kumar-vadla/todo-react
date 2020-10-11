@@ -5,6 +5,8 @@
 
 .todo-name {
   cursor: pointer;
+  font-weight: bold;
+  font-size: 3vh;
 }
 
 .todoItem-created,
@@ -55,4 +57,5 @@
 .icon {
   height: 16px;
   width: 11px;
+  cursor: pointer;
 }

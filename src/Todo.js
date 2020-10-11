@@ -5,21 +5,20 @@ import TodoHeader from './TodoHeader.js';
 import TodoItem from './TodoItem.js';
 import State from './State.js';
 
-const items = [
-  { id: 1, title: 'Can add Item', state: State.Done },
-  { id: 2, title: 'Can delete a Item', state: State.Created },
-  { id: 3, title: 'Can mark an Item as Doing, Done', state: State.Doing },
-];
-
 class Todo extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: 'TODO', items, inputValue: '' };
+    this.state = { name: 'TODO', items: [], inputValue: '' };
     this.onInputValueChange = this.onInputValueChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.updateTodoItemState = this.updateTodoItemState.bind(this);
     this.updateName = this.updateName.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.reset = this.reset.bind(this);
+  }
+
+  reset() {
+    this.setState(_ => ({ name: 'TODO', items: [], inputValue: '' }));
   }
 
   onInputValueChange(inputValue) {
@@ -76,7 +75,11 @@ class Todo extends Component {
   render() {
     return (
       <div className='todo'>
-        <TodoHeader value={this.state.name} updateName={this.updateName} />
+        <TodoHeader
+          value={this.state.name}
+          updateName={this.updateName}
+          reset={this.reset}
+        />
         <div>{this.createTodoItems()}</div>
         <Input
           value={this.state.inputValue}
