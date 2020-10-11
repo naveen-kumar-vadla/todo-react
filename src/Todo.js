@@ -1,40 +1,30 @@
 import React, { Component } from 'react';
 
-import Input from './Input.js';
 import TodoHeader from './TodoHeader.js';
 import TodoItem from './TodoItem.js';
 import State from './State.js';
+import TodoItemAdder from './TodoItemAdder.js'
 
 class Todo extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: 'TODO', items: [], inputValue: '' };
-    this.onInputValueChange = this.onInputValueChange.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
+    this.state = { name: 'TODO', items: [] };
+    this.addTodoItem = this.addTodoItem.bind(this);
     this.updateTodoItemState = this.updateTodoItemState.bind(this);
-    this.updateName = this.updateName.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.updateName = this.updateName.bind(this);
     this.reset = this.reset.bind(this);
   }
 
   reset() {
-    this.setState(_ => ({ name: 'TODO', items: [], inputValue: '' }));
-  }
-
-  onInputValueChange(inputValue) {
-    this.setState(_ => ({ inputValue }));
-  }
-
-  onKeyDown(key, inputValue) {
-    if (inputValue !== '' && key === 'Enter') this.addTodoItem(inputValue);
+    this.setState(_ => ({ name: 'TODO', items: [] }));
   }
 
   addTodoItem(title) {
     this.setState(state => {
       const items = state.items.slice();
-      const id = items.length + 1;
-      items.push({ id, title, state: State.Created });
-      return { items, inputValue: '' };
+      items.push({ title, state: State.Created });
+      return { items };
     });
   }
 
@@ -44,28 +34,27 @@ class Todo extends Component {
 
   deleteItem(id) {
     this.setState(({ items }) => ({
-      items: items.filter(item => item.id !== id),
+      items: items.filter((item,index) => index !== id),
     }));
   }
 
   updateTodoItemState(id) {
     this.setState(state => {
       const items = state.items.slice();
-      const index = items.findIndex(item => item.id === id);
-      const item = Object.assign({}, items[index]);
+      const item = Object.assign({}, items[id]);
       item.state = item.state.next;
-      items[index] = item;
+      items[id] = item;
       return { items };
     });
   }
 
   createTodoItems() {
-    return this.state.items.map(item => (
+    return this.state.items.map((item,id) => (
       <TodoItem
         state={item.state}
         title={item.title}
-        id={item.id}
-        key={item.id}
+        id={id}
+        key={id}
         onClick={this.updateTodoItemState}
         deleteItem={this.deleteItem}
       />
@@ -81,11 +70,7 @@ class Todo extends Component {
           reset={this.reset}
         />
         <div>{this.createTodoItems()}</div>
-        <Input
-          value={this.state.inputValue}
-          onChange={this.onInputValueChange}
-          onKeyDown={this.onKeyDown}
-        />
+        <TodoItemAdder addTodoItem={this.addTodoItem} />
       </div>
     );
   }
