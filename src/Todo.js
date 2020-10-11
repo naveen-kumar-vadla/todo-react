@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import TodoHeader from './TodoHeader.js';
 import TodoItem from './TodoItem.js';
 import State from './State.js';
-import TodoItemAdder from './TodoItemAdder.js'
+import TodoItemAdder from './TodoItemAdder.js';
 
 class Todo extends Component {
   constructor(props) {
@@ -17,7 +17,9 @@ class Todo extends Component {
   }
 
   reset() {
-    this.setState(_ => ({ name: 'TODO', items: [] }));
+    const defaultState = { name: 'TODO', items: [] };
+    this.setState(_ => defaultState);
+    return defaultState;
   }
 
   addTodoItem(title) {
@@ -34,7 +36,7 @@ class Todo extends Component {
 
   deleteItem(id) {
     this.setState(({ items }) => ({
-      items: items.filter((item,index) => index !== id),
+      items: items.filter((item, index) => index !== id),
     }));
   }
 
@@ -49,7 +51,7 @@ class Todo extends Component {
   }
 
   createTodoItems() {
-    return this.state.items.map((item,id) => (
+    return this.state.items.map((item, id) => (
       <TodoItem
         state={item.state}
         title={item.title}

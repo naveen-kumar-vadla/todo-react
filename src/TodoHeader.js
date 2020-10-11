@@ -7,7 +7,7 @@ class TodoHeader extends Component {
     super(props);
     this.state = { name: props.value, isEditing: false, isHovered: false };
     this.toggleEditMode = this.toggleEditMode.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.updateName = this.updateName.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.toggleMouseHover = this.toggleMouseHover.bind(this);
     this.resetTodo = this.resetTodo.bind(this);
@@ -21,7 +21,7 @@ class TodoHeader extends Component {
     this.setState(({ isEditing }) => ({ isEditing: !isEditing }));
   }
 
-  onChange(name) {
+  updateName(name) {
     this.setState(_ => ({ name }));
   }
 
@@ -34,7 +34,8 @@ class TodoHeader extends Component {
 
   resetTodo(event) {
     event.stopPropagation();
-    this.props.reset();
+    const { name } = this.props.reset();
+    this.setState(_ => ({ name }));
   }
 
   render() {
@@ -54,7 +55,7 @@ class TodoHeader extends Component {
     const inputHeader = (
       <Input
         value={this.state.name}
-        onChange={this.onChange}
+        onChange={this.updateName}
         onKeyDown={this.onKeyDown}
       />
     );
