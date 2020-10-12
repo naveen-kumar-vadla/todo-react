@@ -12,7 +12,7 @@ const withDelete = Component => {
         <Component {...props} />
         {isHovered ? (
           <i
-            className='fas fa-times'
+            className='fas fa-times delete-button'
             onClick={() => props.deleteMethod(props.id)}
           ></i>
         ) : (

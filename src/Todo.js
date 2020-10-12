@@ -6,6 +6,8 @@ import State from './State.js';
 import Input from './Input.js';
 import withDelete from './withDelete.js';
 
+const getNewId = () => new Date().getTime();
+
 class Todo extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +27,8 @@ class Todo extends Component {
   addTodoItem(title) {
     this.setState(state => {
       const items = state.items.slice();
-      items.push({ title, state: State.Created });
+      const id = getNewId();
+      items.push({ id, title, state: State.Created });
       return { items };
     });
   }
@@ -36,30 +39,31 @@ class Todo extends Component {
 
   deleteItem(id) {
     this.setState(({ items }) => ({
-      items: items.filter((item, index) => index !== id),
+      items: items.filter(item => item.id !== id),
     }));
   }
 
   updateTodoItemState(id) {
     this.setState(state => {
       const items = state.items.slice();
-      const item = Object.assign({}, items[id]);
+      const index = items.findIndex(item => item.id === id);
+      const item = Object.assign({}, items[index]);
       item.state = item.state.next;
-      items[id] = item;
+      items[index] = item;
       return { items };
     });
   }
 
   createTodoItems() {
-    return this.state.items.map((item, id) => {
+    return this.state.items.map(item => {
       const DeletableTodoItem = withDelete(TodoItem);
       return (
         <DeletableTodoItem
-          id={id}
+          id={item.id}
           deleteMethod={this.deleteItem}
           state={item.state}
           title={item.title}
-          key={id}
+          key={item.id}
           onClick={this.updateTodoItemState}
         />
       );
