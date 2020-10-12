@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import TodoHeader from './TodoHeader.js';
 import TodoItem from './TodoItem.js';
 import State from './State.js';
-import TodoItemAdder from './TodoItemAdder.js';
+import Input from './Input.js';
 
 class Todo extends Component {
   constructor(props) {
@@ -71,7 +71,7 @@ class Todo extends Component {
           reset={this.reset}
         />
         {this.createTodoItems()}
-        <TodoItemAdder addTodoItem={this.addTodoItem} />
+        <Input onEnter={this.addTodoItem} value=''/>
       </div>
     );
   }

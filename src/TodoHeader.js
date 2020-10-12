@@ -5,12 +5,11 @@ import Input from './Input.js';
 class TodoHeader extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: props.value, isEditing: false, isHovered: false };
+    this.state = { isEditing: false, isHovered: false };
     this.toggleEditMode = this.toggleEditMode.bind(this);
-    this.updateName = this.updateName.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
     this.toggleMouseHover = this.toggleMouseHover.bind(this);
     this.resetTodo = this.resetTodo.bind(this);
+    this.updateName = this.updateName.bind(this);
   }
 
   toggleMouseHover() {
@@ -22,20 +21,13 @@ class TodoHeader extends Component {
   }
 
   updateName(name) {
-    this.setState(_ => ({ name }));
-  }
-
-  onKeyDown(key, name) {
-    if (name !== '' && key === 'Enter') {
-      this.toggleEditMode();
-      this.props.updateName(name);
-    }
+    this.toggleEditMode();
+    this.props.updateName(name);
   }
 
   resetTodo(event) {
     event.stopPropagation();
     this.props.reset();
-    this.setState(_ => ({ name: 'TODO' }));
   }
 
   render() {
@@ -49,7 +41,7 @@ class TodoHeader extends Component {
         onMouseLeave={this.toggleMouseHover}
       >
         <div className='todo-name' onClick={this.toggleEditMode}>
-          {this.state.name}
+          {this.props.value}
         </div>
         {this.state.isHovered ? resetButton : ''}
       </div>
@@ -57,9 +49,8 @@ class TodoHeader extends Component {
     const inputHeader = (
       <Input
         className='todo-name-edit-mode'
-        value={this.state.name}
-        onChange={this.updateName}
-        onKeyDown={this.onKeyDown}
+        value={this.props.value}
+        onEnter={this.updateName}
         autoFocus={true}
       />
     );
