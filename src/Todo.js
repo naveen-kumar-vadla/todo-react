@@ -19,7 +19,6 @@ class Todo extends Component {
   reset() {
     const defaultState = { name: 'TODO', items: [] };
     this.setState(_ => defaultState);
-    return defaultState;
   }
 
   addTodoItem(title) {

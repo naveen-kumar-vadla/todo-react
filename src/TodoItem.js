@@ -23,8 +23,7 @@ class TodoItem extends Component {
   }
 
   render() {
-    const deleteAction = this.state.isHovered ? this.delete : () => {};
-    const deleteButtonClassName = this.state.isHovered ? 'fas fa-times' : '';
+    const deleteButton = <i className='fas fa-times' onClick={this.delete} ></i>;
     return (
       <div
         className={`todoItem-${this.props.state.name}`}
@@ -35,10 +34,7 @@ class TodoItem extends Component {
         <span className='highlighter'></span>
         <div className='flex-container'>
           <div className='title'>{this.props.title}</div>
-          <i
-            className={'icon ' + deleteButtonClassName}
-            onClick={deleteAction}
-          ></i>
+          {this.state.isHovered ? deleteButton : ''}
         </div>
       </div>
     );

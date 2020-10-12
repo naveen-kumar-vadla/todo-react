@@ -34,13 +34,14 @@ class TodoHeader extends Component {
 
   resetTodo(event) {
     event.stopPropagation();
-    const { name } = this.props.reset();
-    this.setState(_ => ({ name }));
+    this.props.reset();
+    this.setState(_ => ({ name: 'TODO' }));
   }
 
   render() {
-    const resetAction = this.state.isHovered ? this.resetTodo : () => {};
-    const resetButtonClassName = this.state.isHovered ? 'fas fa-times' : '';
+    const resetButton = (
+      <i className='fas fa-times reset-button' onClick={this.resetTodo}></i>
+    );
     const header = (
       <div
         className='flex-container'
@@ -50,10 +51,7 @@ class TodoHeader extends Component {
         <div className='todo-name' onClick={this.toggleEditMode}>
           {this.state.name}
         </div>
-        <i
-          className={'icon reset-button ' + resetButtonClassName}
-          onClick={resetAction}
-        ></i>
+        {this.state.isHovered ? resetButton : ''}
       </div>
     );
     const inputHeader = (

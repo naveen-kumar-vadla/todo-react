@@ -7,7 +7,7 @@
 
 .todo {
   margin: 0 auto;
-  width: 25vw;
+  width: 25vh;
   word-wrap: break-word;
   word-break: break-all;
   hyphens: auto;
@@ -17,6 +17,7 @@
   cursor: pointer;
   border: 2px solid transparent;
   padding: 1px 2px;
+  width: 80%;
 }
 
 .todo-name,
@@ -34,13 +35,14 @@
 }
 
 .highlighter {
-  width: 1.5vw;
+  width: 1.5vh;
   height: 2vh;
   margin-right: 0.5vh;
 }
 
 .title {
-  margin-left: 0.5vw;
+  margin-left: 0.5vh;
+  width: 80%;
 }
 
 .todoItem-created .highlighter {
@@ -70,12 +72,6 @@
   justify-content: space-between;
 }
 
-.icon {
-  height: 16px;
-  width: 11px;
-  cursor: pointer;
-}
-
 input[type='text'] {
   width: 100%;
 }
@@ -87,4 +83,5 @@ input[type='text'] {
 
 .reset-button {
   margin-top: 1vh;
+  cursor: pointer;
 }
