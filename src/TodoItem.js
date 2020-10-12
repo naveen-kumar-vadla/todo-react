@@ -1,44 +1,29 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-class TodoItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { isHovered: false };
-    this.toggleMouseHover = this.toggleMouseHover.bind(this);
-    this.delete = this.delete.bind(this);
-    this.toggleState = this.toggleState.bind(this);
-  }
-
-  toggleMouseHover() {
-    this.setState(({ isHovered }) => ({ isHovered: !isHovered }));
-  }
-
-  delete(event) {
-    event.stopPropagation();
-    this.props.deleteItem(this.props.id);
-  }
-
-  toggleState() {
-    this.props.onClick(this.props.id);
-  }
-
-  render() {
-    const deleteButton = <i className='fas fa-times' onClick={this.delete} ></i>;
-    return (
-      <div
-        className={`todoItem-${this.props.state.name}`}
-        onClick={this.toggleState}
-        onMouseEnter={this.toggleMouseHover}
-        onMouseLeave={this.toggleMouseHover}
-      >
-        <span className='highlighter'></span>
-        <div className='flex-container'>
-          <div className='title'>{this.props.title}</div>
-          {this.state.isHovered ? deleteButton : ''}
+const TodoItem = props => {
+  const [isHovered, setIsHovered] = useState(false);
+  return (
+    <div
+      className={`todoItem-${props.state.name}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <span className='highlighter'></span>
+      <div className='flex-container'>
+        <div className='title' onClick={() => props.onClick(props.id)}>
+          {props.title}
         </div>
+        {isHovered ? (
+          <i
+            className='fas fa-times'
+            onClick={() => props.deleteItem(props.id)}
+          ></i>
+        ) : (
+          <></>
+        )}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default TodoItem;
