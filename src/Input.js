@@ -1,39 +1,25 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-class Input extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { inputValue: props.value };
-    this.onInputValueChange = this.onInputValueChange.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
+const onKeyDown = (event, setValue, props) => {
+  const value = event.target.value;
+  if (value !== '' && event.key === 'Enter') {
+    setValue(props.value);
+    props.onEnter(value);
   }
+};
 
-  onInputValueChange(event) {
-    const inputValue = event.target.value;
-    this.setState(_ => ({ inputValue }));
-  }
-
-  onKeyDown(event) {
-    const key = event.key;
-    const inputValue = event.target.value;
-    if (inputValue !== '' && key === 'Enter') {
-      this.setState(_ => ({ inputValue: this.props.value }));
-      this.props.onEnter(inputValue);
-    }
-  }
-
-  render() {
-    return (
-      <input
-        className={this.props.className}
-        type='text'
-        value={this.state.inputValue}
-        onChange={this.onInputValueChange}
-        onKeyDown={this.onKeyDown}
-        autoFocus={this.props.autoFocus}
-      ></input>
-    );
-  }
-}
+const Input = props => {
+  const [value, setValue] = useState(props.value);
+  return (
+    <input
+      className={props.className}
+      type='text'
+      value={value}
+      onChange={e => setValue(e.target.value)}
+      onKeyDown={e => onKeyDown(e, setValue, props)}
+      autoFocus={props.autoFocus}
+    />
+  );
+};
 
 export default Input;
