@@ -4,6 +4,7 @@ import TodoHeader from './TodoHeader.js';
 import TodoItem from './TodoItem.js';
 import State from './State.js';
 import Input from './Input.js';
+import withDelete from './withDelete.js';
 
 class Todo extends Component {
   constructor(props) {
@@ -50,28 +51,33 @@ class Todo extends Component {
   }
 
   createTodoItems() {
-    return this.state.items.map((item, id) => (
-      <TodoItem
-        state={item.state}
-        title={item.title}
-        id={id}
-        key={id}
-        onClick={this.updateTodoItemState}
-        deleteItem={this.deleteItem}
-      />
-    ));
+    return this.state.items.map((item, id) => {
+      const DeletableTodoItem = withDelete(TodoItem);
+      return (
+        <DeletableTodoItem
+          id={id}
+          deleteMethod={this.deleteItem}
+          state={item.state}
+          title={item.title}
+          key={id}
+          onClick={this.updateTodoItemState}
+        />
+      );
+    });
   }
 
   render() {
+    const DeletableTodoHeader = withDelete(TodoHeader);
     return (
       <div className='todo'>
-        <TodoHeader
+        <DeletableTodoHeader
+          id={0}
           value={this.state.name}
           updateName={this.updateName}
-          reset={this.reset}
+          deleteMethod={this.reset}
         />
         {this.createTodoItems()}
-        <Input onEnter={this.addTodoItem} value=''/>
+        <Input onEnter={this.addTodoItem} value='' />
       </div>
     );
   }

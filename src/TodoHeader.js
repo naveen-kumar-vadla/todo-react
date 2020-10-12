@@ -5,15 +5,10 @@ import Input from './Input.js';
 class TodoHeader extends Component {
   constructor(props) {
     super(props);
-    this.state = { isEditing: false, isHovered: false };
+    this.state = { isEditing: false };
     this.toggleEditMode = this.toggleEditMode.bind(this);
-    this.toggleMouseHover = this.toggleMouseHover.bind(this);
     this.resetTodo = this.resetTodo.bind(this);
     this.updateName = this.updateName.bind(this);
-  }
-
-  toggleMouseHover() {
-    this.setState(({ isHovered }) => ({ isHovered: !isHovered }));
   }
 
   toggleEditMode() {
@@ -31,19 +26,9 @@ class TodoHeader extends Component {
   }
 
   render() {
-    const resetButton = (
-      <i className='fas fa-times reset-button' onClick={this.resetTodo}></i>
-    );
     const header = (
-      <div
-        className='flex-container'
-        onMouseEnter={this.toggleMouseHover}
-        onMouseLeave={this.toggleMouseHover}
-      >
-        <div className='todo-name' onClick={this.toggleEditMode}>
-          {this.props.value}
-        </div>
-        {this.state.isHovered ? resetButton : ''}
+      <div className='todo-name' onClick={this.toggleEditMode}>
+        {this.props.value}
       </div>
     );
     const inputHeader = (
