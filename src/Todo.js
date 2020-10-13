@@ -1,43 +1,28 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 
 import TodoHeader from './TodoHeader.js';
 import TodoItem from './TodoItem.js';
-import State from './State.js';
 import Input from './Input.js';
 import withDelete from './withDelete.js';
+import TodoReducer from './TodoReducer.js';
 
-const getNewId = () => new Date().getTime();
+const initialState = { items: [], name: 'TODO' };
 
 const Todo = () => {
-  const [name, setName] = useState('TODO');
-  const [items, setItems] = useState([]);
-  const addItem = title => {
-    const itemsCopy = items.slice();
-    const id = getNewId();
-    itemsCopy.push({ id, title, state: State.Created });
-    setItems(itemsCopy);
-  };
-  const updateItemState = id => {
-    const itemsCopy = items.slice();
-    const item = itemsCopy.find(item => item.id === id);
-    item.state = item.state.next;
-    setItems(itemsCopy);
-  };
-  const deleteItem = id => setItems(items.filter(item => item.id !== id));
-  const updateName = name => setName(name);
-  const reset = () => {
-    setName('TODO');
-    setItems([]);
-  };
+  const [state, dispatch] = useReducer(TodoReducer, initialState);
+  const addItem = title => dispatch({ type: 'add-item', value: title });
+  const updateItemState = id =>
+    dispatch({ type: 'update-item-state', value: id });
+  const deleteItem = id => dispatch({ type: 'delete-item', value: id });
+  const updateName = name => dispatch({ type: 'update-name', value: name });
+  const reset = () => dispatch({ type: 'reset', value: initialState });
   const createItems = () => {
-    return items.map(item => {
+    return state.items.map(item => {
       const DeletableTodoItem = withDelete(TodoItem);
       return (
         <DeletableTodoItem
-          id={item.id}
+          {...item}
           deleteMethod={deleteItem}
-          state={item.state}
-          title={item.title}
           key={item.id}
           onClick={updateItemState}
         />
@@ -48,8 +33,7 @@ const Todo = () => {
   return (
     <div className='todo'>
       <DeletableTodoHeader
-        id={0}
-        value={name}
+        value={state.name}
         updateName={updateName}
         deleteMethod={reset}
       />
