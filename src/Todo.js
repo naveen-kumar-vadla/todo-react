@@ -5,8 +5,9 @@ import TodoItem from './TodoItem.js';
 import Input from './Input.js';
 import withDelete from './withDelete.js';
 import TodoReducer from './TodoReducer.js';
+import TodoAPI from './TodoAPI.js';
 
-const initialState = { items: [], name: 'TODO' };
+const initialState = TodoAPI.fetchTodo(0);
 
 const Todo = () => {
   const [state, dispatch] = useReducer(TodoReducer, initialState);
