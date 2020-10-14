@@ -1,22 +1,21 @@
-import React, { useReducer } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import TodoHeader from './TodoHeader.js';
 import TodoItem from './TodoItem.js';
 import Input from './Input.js';
 import withDelete from './withDelete.js';
-import TodoReducer from './TodoReducer.js';
 import TodoAPI from './TodoAPI.js';
 
-const initialState = TodoAPI.fetchTodo(0);
-
 const Todo = () => {
-  const [state, dispatch] = useReducer(TodoReducer, initialState);
-  const addItem = title => dispatch({ type: 'add-item', value: title });
-  const updateItemState = id =>
-    dispatch({ type: 'update-item-state', value: id });
-  const deleteItem = id => dispatch({ type: 'delete-item', value: id });
-  const updateName = name => dispatch({ type: 'update-name', value: name });
-  const reset = () => dispatch({ type: 'reset', value: initialState });
+  const [state, setState] = useState({ items: [], title: 'TODO' });
+  useEffect(() => {
+    TodoAPI.fetchTodo(0).then(s => setState(s));
+  }, []);
+  const addItem = title => TodoAPI.addTodoItem(title).then(s => setState(s));
+  const updateItemState = id => TodoAPI.updateItemState(id).then(s => setState(s));
+  const deleteItem = id => TodoAPI.deleteItem(id).then(s => setState(s));
+  const updateName = name => TodoAPI.updateName(name).then(s => setState(s));
+  const reset = () => TodoAPI.resetTodo().then(s => setState(s));
   const createItems = () => {
     return state.items.map(item => {
       const DeletableTodoItem = withDelete(TodoItem);
