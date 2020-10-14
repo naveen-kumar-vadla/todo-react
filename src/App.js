@@ -1,7 +1,7 @@
 import React from 'react';
-import './App.css';
+import './css//App.css';
 
-import Todo from './Todo.js';
+import Todo from './components/Todo.js';
 
 const App = () => <Todo />;
 

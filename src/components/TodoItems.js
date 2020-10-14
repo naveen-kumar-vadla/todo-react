@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TodoItem from './TodoItem.js';
-import withDelete from './withDelete.js';
+import withDelete from './helperJS/withDelete.js';
 
 const TodoItems = ({ items, updateMethod, deleteMethod }) => {
   return items.map(item => {
