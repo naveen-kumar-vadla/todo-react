@@ -24,7 +24,7 @@ const Todo = () => {
           {...item}
           deleteMethod={deleteItem}
           key={item.id}
-          onClick={updateItemState}
+          updateState={updateItemState}
         />
       );
     });
